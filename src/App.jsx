@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 
-import { auth } from "./firebase";
+
 import { io } from 'socket.io-client';
 
 const socket = io('https://auction-server12-production.up.railway.app');
@@ -135,23 +135,7 @@ function App() {
                         </div>
 
                         <div style={styles.inputs}>
-                            {!user ? (
-  <button
-    onClick={login}
-    style={styles.button}
-  >
-    Увійти через Google
-  </button>
-) : (
-  <div
-    style={{
-      color: "#00ffae",
-      marginBottom: "20px",
-    }}
-  >
-    {user.email}
-  </div>
-)}
+                            
                             <input
                                 placeholder="Ваше прізвище та ім'я"
                                 value={name}
