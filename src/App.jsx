@@ -1,8 +1,15 @@
 
 import { useEffect, useState } from 'react';
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+
+import { auth } from "./firebase";
 import { io } from 'socket.io-client';
 
-const socket = io('auction-server12-production.up.railway.app');
+const socket = io('https://auction-server12-production.up.railway.app');
 
 function App() {
     const [auction, setAuction] = useState(null);
@@ -10,6 +17,35 @@ function App() {
     const [bid, setBid] = useState('');
     const [currentImage, setCurrentImage] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const login = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+
+    const result = await signInWithPopup(
+      auth,
+      provider
+    );
+
+    const email = result.user.email;
+
+    if (
+      !email.endsWith("@gms-worldwide.com")
+    ) {
+      alert(
+        "Тільки корпоративна пошта GMS"
+      );
+
+      await signOut(auth);
+
+      return;
+    }
+
+    setUser(result.user);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
     const images = [
         '/cars/car1.jpg',
@@ -126,6 +162,23 @@ function App() {
                         </div>
 
                         <div style={styles.inputs}>
+                            {!user ? (
+  <button
+    onClick={login}
+    style={styles.button}
+  >
+    Увійти через Google
+  </button>
+) : (
+  <div
+    style={{
+      color: "#00ffae",
+      marginBottom: "20px",
+    }}
+  >
+    {user.email}
+  </div>
+)}
                             <input
                                 placeholder="Ваше прізвище та ім'я"
                                 value={name}
@@ -145,12 +198,14 @@ function App() {
                                 style={styles.input}
                             />
 
-                            <button
-                                onClick={placeBid}
-                                style={styles.button}
-                            >
-                                Зробити ставку
-                            </button>
+                            {user && (
+  <button
+      onClick={placeBid}
+      style={styles.button}
+  >
+      Зробити ставку
+  </button>
+)}
                         </div>
                     </div>
                 </div>
