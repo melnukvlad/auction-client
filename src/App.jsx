@@ -1,10 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+
 
 import { auth } from "./firebase";
 import { io } from 'socket.io-client';
@@ -17,35 +13,12 @@ function App() {
     const [bid, setBid] = useState('');
     const [currentImage, setCurrentImage] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
-    const [user, setUser] = useState(null);
-    const login = async () => {
-  try {
-    const provider = new GoogleAuthProvider();
+    
+    
+  
+    
 
-    const result = await signInWithPopup(
-      auth,
-      provider
-    );
-
-    const email = result.user.email;
-
-    if (
-      !email.endsWith("@gms-worldwide.com")
-    ) {
-      alert(
-        "Тільки корпоративна пошта GMS"
-      );
-
-      await signOut(auth);
-
-      return;
-    }
-
-    setUser(result.user);
-  } catch (error) {
-    console.log(error);
-  }
-};
+    
 
     const images = [
         '/cars/car1.jpg',
@@ -198,14 +171,12 @@ function App() {
                                 style={styles.input}
                             />
 
-                            {user && (
-  <button
-      onClick={placeBid}
-      style={styles.button}
-  >
-      Зробити ставку
-  </button>
-)}
+                            <button
+  onClick={placeBid}
+  style={styles.button}
+>
+  Зробити ставку
+</button>
                         </div>
                     </div>
                 </div>
