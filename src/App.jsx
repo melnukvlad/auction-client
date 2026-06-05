@@ -367,9 +367,9 @@ const styles = {
 
     card: {
     width: '100%',
-    height: '72vh',
+    height: '70vh',
     display: 'grid',
-    gridTemplateColumns: '1.45fr 0.75fr',
+    gridTemplateColumns: '2fr 1fr',
     background: 'rgba(17,24,39,0.96)',
     overflow: 'hidden',
     borderTop: '1px solid rgba(255,255,255,0.06)',
