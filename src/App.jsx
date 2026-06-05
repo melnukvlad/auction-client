@@ -360,27 +360,25 @@ const styles = {
 },
 
     overlay: {
-    width: '100vw',
-    marginLeft: 'calc(50% - 50vw)',
-    padding: '0 30px',
+    maxWidth: '1600px',
+    margin: '0 auto',
+    padding: '20px',
 },
 
     card: {
     width: '100%',
-    minHeight: '70vh',
     display: 'grid',
-    gridTemplateColumns: '1.4fr 0.9fr',
+    gridTemplateColumns: '1.3fr 0.9fr',
     background: 'rgba(17,24,39,0.96)',
     overflow: 'hidden',
-    borderTop: '1px solid rgba(255,255,255,0.06)',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-    alignItems: 'stretch',
+    borderRadius: '20px',
+    border: '1px solid rgba(255,255,255,0.08)',
 },
 
     imageWrapper: {
     position: 'relative',
     width: '100%',
-    height: '72vh',
+    height: '60vh',
 },
 
     image: {
@@ -416,17 +414,17 @@ const styles = {
     },
 
     content: {
-    padding: '30px 40px',
+    padding: '24px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    gap: '15px',
 },
 
     title: {
-    fontSize: '52px',
-    marginBottom: '5px',
+    fontSize: 'clamp(28px, 3vw, 42px)',
+    marginBottom: '0',
     color: 'white',
-    lineHeight: 1,
+    lineHeight: 1.1,
     fontWeight: '700',
 },
 
@@ -446,16 +444,16 @@ const styles = {
     },
 
     price: {
-    fontSize: '64px',
+    fontSize: 'clamp(36px, 4vw, 54px)',
     fontWeight: '800',
     color: '#00ffae',
-    letterSpacing: '-2px',
+    letterSpacing: '-1px',
 },
 
     lastBid: {
-        marginBottom: '25px',
-        fontSize: '18px',
-    },
+    marginBottom: '10px',
+    fontSize: '16px',
+},
 
     inputs: {
         display: 'flex',
@@ -464,24 +462,24 @@ const styles = {
     },
 
     input: {
-        padding: '18px',
-        borderRadius: '14px',
-        border: 'none',
-        fontSize: '16px',
-        background: '#1e293b',
-        color: 'white',
-    },
+    padding: '14px',
+    borderRadius: '12px',
+    border: 'none',
+    fontSize: '15px',
+    background: '#1e293b',
+    color: 'white',
+},
 
     button: {
-        padding: '20px',
-        borderRadius: '14px',
-        border: 'none',
-        background: '#00ffae',
-        color: 'black',
-        fontWeight: 'bold',
-        fontSize: '20px',
-        cursor: 'pointer',
-    },
+    padding: '16px',
+    borderRadius: '12px',
+    border: 'none',
+    background: '#00ffae',
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: '18px',
+    cursor: 'pointer',
+},
 
     historyCard: {
         marginTop: '30px',
