@@ -122,7 +122,7 @@ function App() {
     return (
         <div style={styles.page}>
             <div style={styles.overlay}>
-                <div style={styles.card}>
+                <div className="auction-card" style={styles.card}>
                     <div style={styles.imageWrapper}>
                         <img
                             src={images[currentImage]}
