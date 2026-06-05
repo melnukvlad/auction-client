@@ -182,3 +182,19 @@
     border-right-color: var(--border);
   }
 }
+.auction-card {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+}
+
+@media (max-width: 1200px) {
+  .auction-card {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .auction-card {
+    grid-template-columns: 1fr !important;
+  }
+}
