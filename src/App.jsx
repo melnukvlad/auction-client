@@ -14,30 +14,15 @@ function App() {
     const [currentImage, setCurrentImage] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const [timeLeft, setTimeLeft] = useState('');
-    if (window.location.pathname === '/admin') {
-    return <Admin />;
-}
+   
   
     
 
     
 
     const images = [
-        '/cars/car1.jpg',
-        '/cars/car2.jpg',
-        '/cars/car3.jpg',
-        '/cars/car4.jpg',
-        '/cars/car5.jpg',
-        '/cars/car6.jpg',
-        '/cars/car7.jpg',
-        '/cars/car8.jpg',
-        '/cars/car9.jpg',
-        '/cars/car10.jpg',
-        '/cars/car11.jpg',
-        '/cars/car12.jpg',
-        '/cars/car13.jpg',
-        '/cars/car14.jpg',
-    ];
+    'https://picsum.photos/1200/800'
+]
 
     useEffect(() => {
         socket.on('auction_update', (data) => {
@@ -111,7 +96,8 @@ function App() {
 
     setBid('');
 };
-
+console.log('APP STARTED')
+console.log('Auction:', auction)
     if (!auction)
         return (
             <h1 style={{ color: 'white', padding: 40 }}>
