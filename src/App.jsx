@@ -367,13 +367,14 @@ const styles = {
 
     card: {
     width: '100%',
-    height: '70vh',
+    minHeight: '70vh',
     display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
+    gridTemplateColumns: '1.4fr 0.9fr',
     background: 'rgba(17,24,39,0.96)',
     overflow: 'hidden',
     borderTop: '1px solid rgba(255,255,255,0.06)',
     borderBottom: '1px solid rgba(255,255,255,0.06)',
+    alignItems: 'stretch',
 },
 
     imageWrapper: {
