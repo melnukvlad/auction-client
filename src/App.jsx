@@ -13,7 +13,7 @@ function App() {
     const [bid, setBid] = useState('');
     const [currentImage, setCurrentImage] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
-    
+    const [timeLeft, setTimeLeft] = useState('');
     if (window.location.pathname === '/admin') {
     return <Admin />;
 }
@@ -45,6 +45,45 @@ function App() {
         });
     }, []);
 
+    useEffect(() => {
+    const interval = setInterval(() => {
+        if (
+            auction?.status === 'active' &&
+            auction?.endTime
+        ) {
+            const diff =
+                auction.endTime - Date.now();
+
+            if (diff <= 0) {
+                setTimeLeft('00:00:00');
+                return;
+            }
+
+            const hours = Math.floor(
+                diff / 1000 / 60 / 60
+            );
+
+            const minutes = Math.floor(
+                (diff / 1000 / 60) % 60
+            );
+
+            const seconds = Math.floor(
+                (diff / 1000) % 60
+            );
+
+            setTimeLeft(
+                `${String(hours).padStart(2, '0')}:${String(
+                    minutes
+                ).padStart(2, '0')}:${String(
+                    seconds
+                ).padStart(2, '0')}`
+            );
+        }
+    }, 1000);
+
+    return () => clearInterval(interval);
+}, [auction]);
+
     const nextImage = () => {
         setCurrentImage((prev) =>
             prev === images.length - 1 ? 0 : prev + 1
@@ -58,15 +97,20 @@ function App() {
     };
 
     const placeBid = () => {
-        if (!name || !bid) return;
+    if (!name || !bid) return;
 
-        socket.emit('place_bid', {
-            user: name,
-            amount: Number(bid),
-        });
+    if (auction.status !== 'active') {
+        alert('Аукціон ще не активний');
+        return;
+    }
 
-        setBid('');
-    };
+    socket.emit('place_bid', {
+        user: name,
+        amount: Number(bid),
+    });
+
+    setBid('');
+};
 
     if (!auction)
         return (
@@ -127,7 +171,43 @@ function App() {
                                 {auction.currentBid.toLocaleString()} ₴
                             </div>
                         </div>
+{auction.status === 'waiting' && (
+    <div
+        style={{
+            color: '#facc15',
+            marginTop: 10,
+            fontWeight: 'bold',
+        }}
+    >
+        Аукціон ще не розпочато
+    </div>
+)}
 
+{auction.status === 'active' && (
+    <div
+        style={{
+            color: '#00ffae',
+            marginTop: 10,
+            fontSize: 24,
+            fontWeight: 'bold',
+        }}
+    >
+        До завершення: {timeLeft}
+    </div>
+)}
+
+{auction.status === 'finished' && (
+    <div
+        style={{
+            color: '#ef4444',
+            marginTop: 10,
+            fontSize: 24,
+            fontWeight: 'bold',
+        }}
+    >
+        Аукціон завершено
+    </div>
+)}
                         <div style={styles.lastBid}>
                             Остання ставка:
                             <span style={{ color: '#00ffae' }}>
