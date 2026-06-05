@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from 'react';
 
-
+import Admin from './Admin';
 
 import { io } from 'socket.io-client';
 
@@ -14,7 +14,9 @@ function App() {
     const [currentImage, setCurrentImage] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     
-    
+    if (window.location.pathname === '/admin') {
+    return <Admin />;
+}
   
     
 
