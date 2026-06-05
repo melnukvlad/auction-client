@@ -122,6 +122,37 @@ function App() {
     return (
         <div style={styles.page}>
             <div style={styles.overlay}>
+                <div style={styles.auctionHeader}>
+    <div>
+        <div style={styles.auctionStatus}>
+            {auction.status === 'active'
+                ? '🟢 Аукціон активний'
+                : auction.status === 'finished'
+                ? '🔴 Аукціон завершено'
+                : '🟡 Очікує запуску'}
+        </div>
+
+        <h1 style={styles.headerTitle}>
+            Volkswagen Jetta 2016
+        </h1>
+    </div>
+
+    <div>
+        <div style={styles.headerLabel}>
+            Поточна ставка
+        </div>
+
+        <div style={styles.headerPrice}>
+            {auction.currentBid.toLocaleString()} ₴
+        </div>
+
+        {auction.status === 'active' && (
+            <div style={styles.headerTimer}>
+                ⏱ {timeLeft}
+            </div>
+        )}
+    </div>
+</div>
                 <div className="auction-card" style={styles.card}>
                     <div style={styles.imageWrapper}>
                         <img
@@ -157,20 +188,10 @@ function App() {
                     </div>
 
                     <div style={styles.content}>
-                        <h1 style={styles.title}>
-                            Volkswagen Jetta 2016
-                        </h1>
+                        
 
                         
-                        <div style={styles.priceBlock}>
-                            <div style={styles.priceLabel}>
-                                Поточна ставка
-                            </div>
-
-                            <div style={styles.price}>
-                                {auction.currentBid.toLocaleString()} ₴
-                            </div>
-                        </div>
+                        
 {auction.status === 'waiting' && (
     <div
         style={{
@@ -363,6 +384,49 @@ const styles = {
     maxWidth: '1600px',
     margin: '0 auto',
     padding: '20px',
+},
+
+auctionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '25px 35px',
+    marginBottom: '20px',
+    background: 'rgba(17,24,39,0.96)',
+    borderRadius: '20px',
+    border: '1px solid rgba(255,255,255,0.08)',
+},
+
+auctionStatus: {
+    color: '#00ffae',
+    fontSize: '15px',
+    marginBottom: '10px',
+    fontWeight: 'bold',
+},
+
+headerTitle: {
+    margin: 0,
+    fontSize: 'clamp(28px, 3vw, 42px)',
+},
+
+headerLabel: {
+    color: '#94a3b8',
+    marginBottom: '5px',
+    textAlign: 'right',
+},
+
+headerPrice: {
+    fontSize: 'clamp(36px, 4vw, 56px)',
+    fontWeight: '800',
+    color: '#00ffae',
+    textAlign: 'right',
+},
+
+headerTimer: {
+    marginTop: '10px',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    textAlign: 'right',
 },
 
     card: {
