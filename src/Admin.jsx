@@ -3,6 +3,15 @@ import { useState } from 'react'
 export default function Admin() {
     const [password, setPassword] = useState('')
 
+    const [days, setDays] = useState(3)
+
+    const [hours, setHours] = useState(0)
+
+    const [minutes, setMinutes] = useState(0)
+
+    const [startPrice, setStartPrice] =
+        useState(220000)
+
     const startAuction = async () => {
         try {
             const response = await fetch(
@@ -10,17 +19,26 @@ export default function Admin() {
                 {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type':
+                            'application/json',
                     },
                     body: JSON.stringify({
                         password,
+                        days,
+                        hours,
+                        minutes,
+                        startPrice,
                     }),
                 }
             )
 
-            const data = await response.json()
+            const data =
+                await response.json()
 
-            alert(data.message || 'Аукціон запущено')
+            alert(
+                data.message ||
+                    'Аукціон запущено'
+            )
         } catch (error) {
             console.log(error)
         }
@@ -33,7 +51,8 @@ export default function Admin() {
                 {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type':
+                            'application/json',
                     },
                     body: JSON.stringify({
                         password,
@@ -41,9 +60,41 @@ export default function Admin() {
                 }
             )
 
-            const data = await response.json()
+            const data =
+                await response.json()
 
-            alert(data.message || 'Аукціон завершено')
+            alert(
+                data.message ||
+                    'Аукціон завершено'
+            )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const resetAuction = async () => {
+        try {
+            const response = await fetch(
+                'https://auction-server12-production.up.railway.app/admin/reset',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':
+                            'application/json',
+                    },
+                    body: JSON.stringify({
+                        password,
+                    }),
+                }
+            )
+
+            const data =
+                await response.json()
+
+            alert(
+                data.message ||
+                    'Аукціон скинуто'
+            )
         } catch (error) {
             console.log(error)
         }
@@ -53,7 +104,7 @@ export default function Admin() {
         <div
             style={{
                 padding: '40px',
-                maxWidth: '600px',
+                maxWidth: '700px',
                 margin: '0 auto',
             }}
         >
@@ -64,12 +115,78 @@ export default function Admin() {
                 placeholder="Пароль адміністратора"
                 value={password}
                 onChange={(e) =>
-                    setPassword(e.target.value)
+                    setPassword(
+                        e.target.value
+                    )
                 }
                 style={{
                     width: '100%',
                     padding: '12px',
                     marginBottom: '20px',
+                }}
+            />
+
+            <h3>
+                Тривалість аукціону
+            </h3>
+
+            <div
+                style={{
+                    display: 'flex',
+                    gap: '10px',
+                    marginBottom: '20px',
+                }}
+            >
+                <input
+                    type="number"
+                    value={days}
+                    onChange={(e) =>
+                        setDays(
+                            e.target.value
+                        )
+                    }
+                    placeholder="Дні"
+                />
+
+                <input
+                    type="number"
+                    value={hours}
+                    onChange={(e) =>
+                        setHours(
+                            e.target.value
+                        )
+                    }
+                    placeholder="Години"
+                />
+
+                <input
+                    type="number"
+                    value={minutes}
+                    onChange={(e) =>
+                        setMinutes(
+                            e.target.value
+                        )
+                    }
+                    placeholder="Хвилини"
+                />
+            </div>
+
+            <h3>
+                Стартова ціна
+            </h3>
+
+            <input
+                type="number"
+                value={startPrice}
+                onChange={(e) =>
+                    setStartPrice(
+                        e.target.value
+                    )
+                }
+                style={{
+                    width: '100%',
+                    padding: '12px',
+                    marginBottom: '25px',
                 }}
             />
 
@@ -87,9 +204,22 @@ export default function Admin() {
                 onClick={finishAuction}
                 style={{
                     padding: '12px 20px',
+                    marginRight: '10px',
                 }}
             >
                 Завершити аукціон
+            </button>
+
+            <button
+                onClick={resetAuction}
+                style={{
+                    padding: '12px 20px',
+                    background: '#ef4444',
+                    color: 'white',
+                    border: 'none',
+                }}
+            >
+                Скинути аукціон
             </button>
         </div>
     )
