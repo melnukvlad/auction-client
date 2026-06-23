@@ -262,7 +262,7 @@ function App() {
   onClick={placeBid}
   style={styles.button}
 >
-  Підвищити ставку на 1000 грн
+  Підвищити ставку на 4000 грн
 </button>
                         </div>
                     </div>
