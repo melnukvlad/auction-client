@@ -332,7 +332,7 @@ function App() {
     </div>
 </div>
                 <div style={styles.historyCard}>
-                    <h2>История ставок</h2>
+                    <h2>Істория ставок</h2>
 
                     <div style={styles.history}>
                         {auction.history.map((item, index) => (
