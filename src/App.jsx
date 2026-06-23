@@ -97,7 +97,7 @@ function App() {
     };
 
     const placeBid = () => {
-    if (!name || !bid) return;
+    if (!name) return;
 
     if (auction.status !== 'active') {
         alert('Аукціон ще не активний');
@@ -106,7 +106,7 @@ function App() {
 
     socket.emit('place_bid', {
         user: name,
-        amount: Number(bid),
+        amount: auction.currentBid + 1000,
     });
 
     setBid('');
@@ -236,7 +236,15 @@ function App() {
                                 {auction.lastUser}
                             </span>
                         </div>
-
+                        <div
+    style={{
+        color: '#94a3b8',
+        marginBottom: '20px',
+        fontSize: '14px',
+    }}
+>
+    Мінімальний крок ставки: 1000 грн
+</div>
                         <div style={styles.inputs}>
                             
                             <input
@@ -248,21 +256,13 @@ function App() {
                                 style={styles.input}
                             />
 
-                            <input
-                                placeholder="Ваша ставка"
-                                type="number"
-                                value={bid}
-                                onChange={(e) =>
-                                    setBid(e.target.value)
-                                }
-                                style={styles.input}
-                            />
+                            
 
                             <button
   onClick={placeBid}
   style={styles.button}
 >
-  Зробити ставку
+  Підвищити ставку на 1000 грн
 </button>
                         </div>
                     </div>
