@@ -106,7 +106,7 @@ function App() {
 
     socket.emit('place_bid', {
         user: name,
-        amount: auction.currentBid + 1000,
+        amount: auction.currentBid + 4000,
     });
 
     setBid('');
@@ -243,7 +243,7 @@ function App() {
         fontSize: '14px',
     }}
 >
-    Мінімальний крок ставки: 1000 грн
+    Мінімальний крок ставки: 4000 грн
 </div>
                         <div style={styles.inputs}>
                             
