@@ -410,41 +410,52 @@ useEffect(() => {
         style={styles.modal}
         onClick={() => setIsOpen(false)}
     >
-        <button
+        <div
             style={{
-                ...styles.modalArrow,
-                left: 30,
+                position: 'relative',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
-            onClick={(e) => {
-                e.stopPropagation()
-                prevImage()
-            }}
-        >
-            ←
-        </button>
-
-        <img
-            src={images[currentImage]}
-            alt=""
-            style={styles.modalImage}
             onClick={(e) => e.stopPropagation()}
-        />
-
-        <button
-            style={{
-                ...styles.modalArrow,
-                right: 30,
-            }}
-            onClick={(e) => {
-                e.stopPropagation()
-                nextImage()
-            }}
         >
-            →
-        </button>
+
+            <button
+    style={{
+        ...styles.modalArrow,
+        left: '20px',
+    }}
+    onClick={(e) => {
+        e.stopPropagation();
+        prevImage();
+    }}
+>
+    ←
+</button>
+
+            <img
+    src={images[currentImage]}
+    style={styles.modalImage}
+    alt=""
+    onClick={(e) => e.stopPropagation()}
+/>
+
+            <button
+                style={{
+                    ...styles.modalArrow,
+                    right: '20px',
+                }}
+                onClick={(e) => {
+    e.stopPropagation();
+    nextImage();
+}}
+            >
+                →
+            </button>
+
+        </div>
     </div>
 )}
-        </div>
     );
 }
 
@@ -672,11 +683,15 @@ modalArrow: {
     height: '70px',
     borderRadius: '50%',
     border: 'none',
-    background: 'rgba(0,0,0,0.6)',
-    color: 'white',
-    fontSize: '34px',
+    background: 'rgba(0,0,0,0.55)',
+    color: '#fff',
+    fontSize: '42px',
+    fontWeight: 'bold',
     cursor: 'pointer',
-    zIndex: 1000,
+    zIndex: 10000,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
 },
 
 infoCard: {
