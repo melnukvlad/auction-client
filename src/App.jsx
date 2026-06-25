@@ -410,7 +410,7 @@ useEffect(() => {
 </div>
 </div>
                 <div style={styles.historyCard}>
-                    <h2>Істория ставок</h2>
+                    <h2>Історія ставок</h2>
 
                     <div style={styles.history}>
                         {auction.history.map((item, index) => (
