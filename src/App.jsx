@@ -9,13 +9,6 @@ const socket = io('https://auction-server12-production.up.railway.app');
 
 function App() {
     const [auction, setAuction] = useState(null);
-    const [email, setEmail] = useState('')
-const [code, setCode] = useState('')
-
-const [verified, setVerified] =
-    useState(
-        localStorage.getItem('verified') === 'true'
-    )
     const [name, setName] = useState('');
     const [bid, setBid] = useState('');
     const [currentImage, setCurrentImage] = useState(0);
@@ -128,64 +121,6 @@ const [verified, setVerified] =
         );
     };
 
-    const sendCode = async () => {
-    const response = await fetch(
-        'https://auction-server12-production.up.railway.app/send-code',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email,
-            }),
-        }
-    )
-
-    const data = await response.json()
-
-    alert(
-        data.success
-            ? 'Код відправлено'
-            : data.message
-    )
-}
-
-const verifyCode = async () => {
-    const response = await fetch(
-        'https://auction-server12-production.up.railway.app/verify-code',
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email,
-                code,
-            }),
-        }
-    )
-
-    const data = await response.json()
-
-    if (data.success) {
-        localStorage.setItem(
-            'verified',
-            'true'
-        )
-
-        localStorage.setItem(
-            'email',
-            email
-        )
-
-        setVerified(true)
-    } else {
-        alert('Невірний код')
-    }
-}
-
-
     const placeBid = () => {
     if (!name) return;
 
@@ -201,63 +136,6 @@ const verifyCode = async () => {
 
     setBid('');
 };
-
-    if (!verified) {
-    return (
-        <div
-            style={{
-                padding: 40,
-                color: 'white',
-            }}
-        >
-            <h2>
-                Підтвердження корпоративної пошти
-            </h2>
-
-            <input
-                placeholder="name@gms-worldwide.com"
-                value={email}
-                onChange={(e) =>
-                    setEmail(e.target.value)
-                }
-                style={{
-                    padding: 12,
-                    width: 300,
-                }}
-            />
-
-            <br />
-            <br />
-
-            <button onClick={sendCode}>
-                Отримати код
-            </button>
-
-            <br />
-            <br />
-
-            <input
-                placeholder="Код з листа"
-                value={code}
-                onChange={(e) =>
-                    setCode(e.target.value)
-                }
-                style={{
-                    padding: 12,
-                    width: 300,
-                }}
-            />
-
-            <br />
-            <br />
-
-            <button onClick={verifyCode}>
-                Підтвердити
-            </button>
-        </div>
-    )
-}
-
 
     if (!auction)
         return (
