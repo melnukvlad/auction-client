@@ -413,6 +413,12 @@ useEffect(() => {
     }}
     onClick={() => setIsOpen(false)}
 >
+    <button
+    style={styles.closeButton}
+    onClick={() => setIsOpen(false)}
+>
+    ✕
+</button>
     <div
     style={{
         position: 'relative',
@@ -675,6 +681,21 @@ headerTimer: {
     width: '90%',
     maxHeight: '90%',
     objectFit: 'contain',
+},
+
+closeButton: {
+    position: 'absolute',
+    top: '20px',
+    right: '20px',
+    width: '50px',
+    height: '50px',
+    border: 'none',
+    borderRadius: '50%',
+    background: 'rgba(0,0,0,0.6)',
+    color: '#fff',
+    fontSize: '30px',
+    cursor: 'pointer',
+    zIndex: 10001,
 },
 
 modalArrow: {
