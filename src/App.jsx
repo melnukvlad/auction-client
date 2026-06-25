@@ -109,6 +109,33 @@ function App() {
     return () => clearInterval(interval);
 }, [auction]);
 
+useEffect(() => {
+    const handleKeyDown = (e) => {
+        if (!isOpen) return
+
+        if (e.key === 'ArrowLeft') {
+            prevImage()
+        }
+
+        if (e.key === 'ArrowRight') {
+            nextImage()
+        }
+
+        if (e.key === 'Escape') {
+            setIsOpen(false)
+        }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+        window.removeEventListener(
+            'keydown',
+            handleKeyDown
+        )
+    }
+}, [isOpen])
+
     const nextImage = () => {
         setCurrentImage((prev) =>
             prev === images.length - 1 ? 0 : prev + 1
@@ -379,17 +406,44 @@ function App() {
             </div>
 
             {isOpen && (
-                <div
-                    style={styles.modal}
-                    onClick={() => setIsOpen(false)}
-                >
-                    <img
-                        src={images[currentImage]}
-                        alt=""
-                        style={styles.modalImage}
-                    />
-                </div>
-            )}
+    <div
+        style={styles.modal}
+        onClick={() => setIsOpen(false)}
+    >
+        <button
+            style={{
+                ...styles.modalArrow,
+                left: 30,
+            }}
+            onClick={(e) => {
+                e.stopPropagation()
+                prevImage()
+            }}
+        >
+            ←
+        </button>
+
+        <img
+            src={images[currentImage]}
+            alt=""
+            style={styles.modalImage}
+            onClick={(e) => e.stopPropagation()}
+        />
+
+        <button
+            style={{
+                ...styles.modalArrow,
+                right: 30,
+            }}
+            onClick={(e) => {
+                e.stopPropagation()
+                nextImage()
+            }}
+        >
+            →
+        </button>
+    </div>
+)}
         </div>
     );
 }
@@ -608,6 +662,21 @@ headerTimer: {
     width: '90%',
     maxHeight: '90%',
     objectFit: 'contain',
+},
+
+modalArrow: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    width: '70px',
+    height: '70px',
+    borderRadius: '50%',
+    border: 'none',
+    background: 'rgba(0,0,0,0.6)',
+    color: 'white',
+    fontSize: '34px',
+    cursor: 'pointer',
+    zIndex: 1000,
 },
 
 infoCard: {
