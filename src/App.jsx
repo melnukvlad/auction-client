@@ -17,7 +17,7 @@ function App() {
     if (window.location.pathname === '/admin') {
     return <Admin />;
 }
-  
+}
     
 
     
@@ -183,7 +183,6 @@ useEffect(() => {
                 ? '🔴 Аукціон завершено'
                 : '🟡 Очікує запуску'}
         </div>
-
         <h1 style={styles.headerTitle}>
             Volkswagen Jetta 2016
         </h1>
@@ -456,8 +455,7 @@ useEffect(() => {
         </div>
     </div>
 )}
-    );
-}
+
 
 const styles = {
     page: {
