@@ -455,7 +455,8 @@ useEffect(() => {
         </div>
     </div>
 )}
-
+    );
+}
 
 const styles = {
     page: {
