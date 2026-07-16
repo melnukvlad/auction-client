@@ -9,7 +9,225 @@ const socket = io('https://auction-server12-production.up.railway.app');
 
 function App() {
     const [auction, setAuction] = useState(null);
-    const [name, setName] = useState('');
+    const [name, setName] = useState(
+    localStorage.getItem("auctionUser") || ""
+);
+    const allowedUsers = [
+    "Oleg Zaharchenko",
+    "Oleksandr Zubok",
+    "Olexandr Vashchenko",
+    "Olga Khoreva",
+    "Olga Cherniaieva",
+    "Anna Kyselova",
+    "Anna Gres",
+    "Anton Shulha",
+    "Viktor Korobkov",
+    "Anastasiia Zakharova (Kiriienko)",
+    "Kostiantyn Virchenko",
+    "Maryna Ishchanova",
+    "Yurii Chernysh",
+    "Sergii Sushchenko",
+    "Denys Migunov",
+    "Yevhenii Konovalov",
+    "Sergii Kharkov",
+    "Tetiana Petrenko",
+    "Oleksandr Dykukha",
+    "Kyryl Kozlov",
+    "Ihor Ferenets",
+    "Dmytro Hubar",
+    "Pavlo Anoshkin",
+    "Anastasiia Udovychenko",
+    "Elena Koliadenko",
+    "Vitaliy Gardyuto",
+    "Andrii Smetaniuk",
+    "Yevhenii Tarasov",
+    "Serhii Nikolaiev",
+    "Oleksii Subbotin",
+    "Viktoriia Klymchuk",
+    "Yaroslav Plakhtyna",
+    "Ihor Sivachenko",
+    "Serhii Bhan",
+    "Oleksii Shchuka",
+    "Oleg Levytskyi",
+    "Andrii Glushko",
+    "Oleksandr Berezhnyi",
+    "Yana Stupnyk",
+    "Oleksandr Kysil",
+    "Nataliia Vozna",
+    "Stanislav Shabelskyy",
+    "Yevhenii Riabov",
+    "Oleksii Minchenko",
+    "Anastasiia Rusova",
+    "Tetiana Vachi",
+    "Igor Sholom",
+    "Valentyna Andrieieva",
+    "Dmytro Zelman",
+    "Nina Chystyak",
+    "Kateryna Chaplinska",
+    "Ryta Ruzhyn",
+    "Serhii Maistruk",
+    "Yevgenia Galat",
+    "Andrii Sukhin",
+    "Vadym Mukhyn",
+    "Nataliia Kovalenko",
+    "Maksym Ihnatchenko",
+    "Nataliia Balymova",
+    "Olena Kobryn",
+    "Iryna Shenenko",
+    "Iryna Kyrylenko",
+    "Ihor Yashkir",
+    "Nataliia Yuzefovych",
+    "Vadym Podkolzin",
+    "Olexandr Korostii",
+    "Andrii Slyvka",
+    "Volodymyr Stupnikov",
+    "Anna Veretskaya",
+    "Serhii Stefanovskyi",
+    "Danylo Smozhanyk",
+    "Elena Stupakova",
+    "Iryna Radchenko",
+    "Syed Ali",
+    "Iaroslav Levchenko",
+    "Tetiana Derkach",
+    "Dmytro Hihiniak",
+    "Tetiana Pyvovarova",
+    "Roman Lipetskyi",
+    "Alona Manchenko",
+    "Yana Stavska",
+    "Halyna Kolomiets",
+    "Oksana Mytianska",
+    "Ivan Malyuta",
+    "Maryna Sorochynska",
+    "Kateryna Cherniavska",
+    "Andrii Irodenko",
+    "Kateryna Shestopal",
+    "Oleksandr Krasin",
+    "Olena Pliuta",
+    "Mykola Mokosii",
+    "Roman Voronin",
+    "Iuliia Shovkuta",
+    "Alina Danyliuk",
+    "Iryna Postelha",
+    "Mykola Krasovskyi",
+    "Olha Bazavluk",
+    "Olha Shydlovska",
+    "Natalia Filaretova",
+    "Anastasiia Zinchuk",
+    "Maksym Rivasovskyi",
+    "Olena Huzhvii",
+    "Daria Ivanova",
+    "Anastasiia Iaroslavtseva",
+    "Anastasiia Horbenko",
+    "Nataliia Osadcha",
+    "Dmytro Drobot",
+    "Viktoriia Kokorieva",
+    "Svitlana Tsyba",
+    "Yuliya Marchenko",
+    "Oleksandra Horobets",
+    "Andrii Brytsun",
+    "Serhii Pavlenko",
+    "Oleh Hapon",
+    "Bohdan Pidhainyi",
+    "Oleksandr Sudeikin",
+    "Kateryna Borodavko",
+    "Oleksandra Surova",
+    "Oleksandr Bilous",
+    "Dmytro Kostiantynov",
+    "Ihor Lapka",
+    "Iryna Kostina",
+    "Taras Kotlovyanov",
+    "Nikita Butyrskyi",
+    "Denys Kapliuk",
+    "Kostiantyn Bohachov",
+    "Anastasiia Skolets",
+    "Yevhen Rekhteta",
+    "Andrii Stadnik",
+    "Liliia Ivasyshyna",
+    "Yuliia Ponochovna",
+    "Andrii Burenok",
+    "Andrii Tumka",
+    "Tetiana Holovach",
+    "Dmytro Romaniuk",
+    "Liliia Budovich",
+    "Yuliya Makarenko",
+    "Khrystyna Vysochanska",
+    "Pavlo Martynenko",
+    "Taras Yukhym",
+    "Viktoriia Tsymbal",
+    "Nataliia Shevaha",
+    "Nataliia Myronenko",
+    "Mariana Birchyn",
+    "Serhii Skolets",
+    "Oleksandr Dronko",
+    "Karina Makanyk",
+    "Anton Marinov",
+    "Anton Kapitanets",
+    "Serhii Ushakov",
+    "Volodymyr Holub",
+    "Vasyl Osadchuk",
+    "Vladyslav Matskevych",
+    "Yevhenii Khudenko",
+    "Mariia Bokach",
+    "Dmytro Mykhalskyi",
+    "Inna Kavun",
+    "Oleksandr Moroz",
+    "NOC Duty Engineer",
+    "Mariia Martemianova",
+    "Michael Korennyi",
+    "Oleksii Nikolaiev",
+    "Dmytro Ihnatiev",
+    "Vitalii Zaitsev",
+    "Yulia Goryachaya",
+    "Vladyslav Manchenko",
+    "Serhii Rudenko",
+    "Nataliia Omelianenko",
+    "Liubov Markutsia",
+    "Oleh Osadchyi",
+    "Tamara Shydlovska",
+    "Nataliia Konievtsova",
+    "Nataliia Kushnirchuk",
+    "Liudmyla Chekhivska",
+    "Khrystyna Kholiavko",
+    "Oleksandr Klymenko",
+    "Volodymyr Khymych",
+    "Sergii Bazulin",
+    "Mykola Vasylyshyn",
+    "Mariia Shulha",
+    "Valerii Lohvinenko",
+    "Mykola Putkalo",
+    "Olena Hubelit",
+    "Dmytro Melnychuk",
+    "Illia Budnikov",
+    "Maryna Perevera",
+    "Maksym Solodovskyi",
+    "Alona Pylypenko",
+    "Vitalii Naida",
+    "Vladyslav Melnyk",
+    "Mykola Viatkin",
+    "Artur Voitovych",
+    "Anastasiia Zelena",
+    "Yana Myroniuk",
+    "Anna Yefremova",
+    "Olha Tulchynska",
+    "Inna Prochan",
+    "Anna Antonenko",
+    "Mariia Lysiuk",
+    "Bohdana Ivanova",
+    "Anastasiia Bida",
+    "Elizaveta Perepelytsia",
+    "Oksana Skorozinska",
+    "Yuliia Semeniuk",
+    "Alla Akbash",
+    "Borys Remezovskyi",
+    "Yevhenii Hordishevskyi",
+    "Illia Denysenko",
+    "Myla Arseniuk",
+    "Tetiana Syvokon",
+    "Andrii Khaviuk",
+    "Vira Bohdan",
+    "Vladyslav Borysov",
+    "Oleksandra Biliavska"
+];
     const [bid, setBid] = useState('');
     const [currentImage, setCurrentImage] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
@@ -149,6 +367,10 @@ useEffect(() => {
     };
 
     const placeBid = () => {
+        if (!name) {
+    alert("Оберіть своє ім'я");
+    return;
+}
     if (!name) return;
 
     if (auction.status !== 'active') {
@@ -299,14 +521,56 @@ useEffect(() => {
 </div>
                         <div style={styles.inputs}>
                             
-                            <input
-                                placeholder="Ваше прізвище та ім'я"
-                                value={name}
-                                onChange={(e) =>
-                                    setName(e.target.value)
-                                }
-                                style={styles.input}
-                            />
+                            {name ? (
+    <div
+        style={{
+            width: "100%",
+            color: "white",
+            marginBottom: "15px",
+            fontWeight: "bold",
+            textAlign: "center"
+        }}
+    >
+        👤 {name}
+        <br />
+
+        <button
+            onClick={() => {
+                localStorage.removeItem("auctionUser");
+                setName("");
+            }}
+            style={{
+                marginTop: "10px",
+                padding: "6px 12px",
+                cursor: "pointer"
+            }}
+        >
+            Змінити користувача
+        </button>
+    </div>
+) : (
+    <select
+        value=""
+        onChange={(e) => {
+            setName(e.target.value);
+            localStorage.setItem(
+                "auctionUser",
+                e.target.value
+            );
+        }}
+        style={styles.input}
+    >
+        <option value="">
+            Оберіть своє ім'я
+        </option>
+
+        {allowedUsers.map((user) => (
+            <option key={user} value={user}>
+                {user}
+            </option>
+        ))}
+    </select>
+)}
 
                             
 
