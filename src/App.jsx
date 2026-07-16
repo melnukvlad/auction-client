@@ -290,41 +290,62 @@ function App() {
 
     useEffect(() => {
     const interval = setInterval(() => {
-        if (
-            auction?.status === 'active' &&
-            auction?.endTime
-        ) {
-            const diff =
-                auction.endTime - Date.now();
+    if (
+        auction?.status === "active" &&
+        auction?.endTime
+    ) {
+        const diff = auction.endTime - Date.now();
 
-            if (diff <= 0) {
-                setTimeLeft('00:00:00');
-                return;
-            }
+        if (diff <= 0) {
+            setTimeLeft("00:00:00");
+            return;
+        }
 
-            const hours = Math.floor(
-                diff / 1000 / 60 / 60
-            );
+        const totalSeconds = Math.floor(diff / 1000);
 
-            const minutes = Math.floor(
-                (diff / 1000 / 60) % 60
-            );
+        const days = Math.floor(totalSeconds / 86400);
 
-            const seconds = Math.floor(
-                (diff / 1000) % 60
-            );
+        const hours = Math.floor(
+            (totalSeconds % 86400) / 3600
+        );
 
+        const minutes = Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+        const seconds = totalSeconds % 60;
+
+        if (days > 0) {
             setTimeLeft(
-                `${String(hours).padStart(2, '0')}:${String(
-                    minutes
-                ).padStart(2, '0')}:${String(
-                    seconds
-                ).padStart(2, '0')}`
+                `${days}д ${String(hours).padStart(
+                    2,
+                    "0"
+                )}:${String(minutes).padStart(
+                    2,
+                    "0"
+                )}:${String(seconds).padStart(
+                    2,
+                    "0"
+                )}`
+            );
+        } else {
+            setTimeLeft(
+                `${String(hours).padStart(
+                    2,
+                    "0"
+                )}:${String(minutes).padStart(
+                    2,
+                    "0"
+                )}:${String(seconds).padStart(
+                    2,
+                    "0"
+                )}`
             );
         }
-    }, 1000);
+    }
+}, 1000);
 
-    return () => clearInterval(interval);
+return () => clearInterval(interval);
 }, [auction]);
 
 useEffect(() => {
